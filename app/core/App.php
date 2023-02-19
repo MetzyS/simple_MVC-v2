@@ -1,9 +1,14 @@
 <?php
 
+namespace App\Core;
+
+use App\Controllers;
+use App\Models;
+
 class App
 {
     // Lors de l'initialisation de l'application, on utilisera Home et Index par défault.
-    protected $controller = 'home';
+    protected $controller = 'Home';
     protected $method = 'index';
 
     // $params stockera les parametres présent dans l'URL 
@@ -15,12 +20,10 @@ class App
         // Système de routage
         // $url stocke les élements séparés de l'URL (via la fonction parseUrl)
         $url = $this->parseUrl();
-        $_SESSION['test'] = $url;
-        // var_dump($url);
-        // print_r($this->parseUrl());
+
 
         if (is_null($url)) {
-            $url[0] = 'home';
+            $url[0] = 'Home';
         }
 
         // vérifie sur le controleur existe en prenant l'élement contenu dans $url[0]
@@ -31,17 +34,15 @@ class App
         }
 
         require_once('../app/controllers/' . $this->controller . 'Controller.php');
-        // echo $this->controller;
+
 
         // crée une instance du controleur
         $this->controller = new $this->controller;
-        // var_dump($this->controller);
 
         // vérifie si la methode (du controleur) existe en prenant l'élemennt contenu dans $url[1]
         // si la méthode existe, change la valeur de $method
         if (isset($url[1])) {
             if (method_exists($this->controller, $url[1])) {
-                // echo 'la methode existe';
                 $this->method = $url[1];
                 unset($url[1]);
             }
@@ -62,9 +63,8 @@ class App
     {
         // Vérifie si l'URL existe
         // La raison pour laquelle on utilise $_GET est parce qu'on utilise un fichier htaccess* pour éditer l'URL et l'enregistrer dans $_GET['url']
-        // Hypertext Access* permet de bloquer l'acces a certains fichier/dossiers.
         if (isset($_GET['url'])) {
-            // rtrim permet de stocker les élements de l'URL séparés par un "/" dans un tableau.
+            // rtrim permet de retirer le dernier "/", explode permet de stocker les élements de l'URL séparés par un "/" dans un tableau.
             return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
         }
     }

@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Core;
+
+use \PDO;
+
 class DB
 {
     private static $dsn = "mysql:host=localhost;dbname=lord_of_geek;charset=utf8";

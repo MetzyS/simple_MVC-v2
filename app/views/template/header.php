@@ -8,8 +8,8 @@
             <nav id="menu">
                 <ul>
                     <!-- <li><a href=<= $test . "/home/index" >> Accueil </a></li> -->
-                    <li><a href="?page=home"> Accueil </a></li>
-                    <li><a href="?page=jeux"> Voir le catalogue de jeux </a></li>
+                    <li><a href="www/simple_MVC-v2/public/home/index"> Accueil </a></li>
+                    <li><a href="www/simple_MVC-v2/public/jeu/index"> Voir le catalogue de jeux </a></li>
                     <li><a href="?page=panier"> Voir son panier </a></li>
                     <li><a href="?page=compte"> Mon compte </a></li>
                 </ul>

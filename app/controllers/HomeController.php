@@ -1,12 +1,19 @@
 <?php
 
-class Home extends Controller
+namespace App\Controllers;
+
+use App\Core\Model;
+
+class Home extends Model
 {
     /**
      * Affiche views/index.php
      */
     public function index()
     {
+        $this->view('home/index', [
+            'data' => 'wesh'
+        ]);
     }
 
     /**

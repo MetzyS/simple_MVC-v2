@@ -1,6 +1,11 @@
 <?php
 
-class Jeu extends Controller
+namespace App\Controllers;
+
+use App\Models\Jeu as JeuModel;
+
+
+class Jeu extends JeuModel
 {
     /**
      * Affiche views/jeux/index.php
@@ -11,7 +16,7 @@ class Jeu extends Controller
         // $user->name = $name;
 
         $this->view('jeu/index', [
-            // 'page' => 'jeu',
+            'page' => 'jeu',
         ]);
     }
 
