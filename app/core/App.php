@@ -1,0 +1,71 @@
+<?php
+
+class App
+{
+    // Lors de l'initialisation de l'application, on utilisera Home et Index par défault.
+    protected $controller = 'home';
+    protected $method = 'index';
+
+    // $params stockera les parametres présent dans l'URL 
+    // exemple: home/index/param1/param2..
+    protected $params = [];
+
+    public function __construct()
+    {
+        // Système de routage
+        // $url stocke les élements séparés de l'URL (via la fonction parseUrl)
+        $url = $this->parseUrl();
+        $_SESSION['test'] = $url;
+        // var_dump($url);
+        // print_r($this->parseUrl());
+
+        if (is_null($url)) {
+            $url[0] = 'home';
+        }
+
+        // vérifie sur le controleur existe en prenant l'élement contenu dans $url[0]
+        // si le controleur existe, change la valeur de $controller
+        if (file_exists('../app/controllers/' . $url[0] . 'Controller.php')) {
+            $this->controller = $url[0];
+            unset($url[0]);
+        }
+
+        require_once('../app/controllers/' . $this->controller . 'Controller.php');
+        // echo $this->controller;
+
+        // crée une instance du controleur
+        $this->controller = new $this->controller;
+        // var_dump($this->controller);
+
+        // vérifie si la methode (du controleur) existe en prenant l'élemennt contenu dans $url[1]
+        // si la méthode existe, change la valeur de $method
+        if (isset($url[1])) {
+            if (method_exists($this->controller, $url[1])) {
+                // echo 'la methode existe';
+                $this->method = $url[1];
+                unset($url[1]);
+            }
+        }
+        // Permet de réorganiser les indexes de $url[] (a cause des unsets précedents)
+        // vérifie si $url existe -> ré-organise les index, sinon -> params = objet vide
+        $this->params = $url ? array_values($url) : [];
+
+        // Deux arguments: un tableau qui contient un controleur ainsi qu'une methode, les paramètres que l'on veut envoyer
+        call_user_func_array([$this->controller, $this->method], $this->params);
+    }
+
+
+    /**
+     * Permet de scinder l'URL afin de récupérer $controller, $methond et $params[]
+     */
+    public function parseUrl()
+    {
+        // Vérifie si l'URL existe
+        // La raison pour laquelle on utilise $_GET est parce qu'on utilise un fichier htaccess* pour éditer l'URL et l'enregistrer dans $_GET['url']
+        // Hypertext Access* permet de bloquer l'acces a certains fichier/dossiers.
+        if (isset($_GET['url'])) {
+            // rtrim permet de stocker les élements de l'URL séparés par un "/" dans un tableau.
+            return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+        }
+    }
+}

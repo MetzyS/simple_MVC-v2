@@ -1,0 +1,2 @@
+Le dossier public/ sera l'endroit ou les utilisateurs atteriront (index).
+C'est ici que seront contenu les fichiers CSS, JS (si besoin)..

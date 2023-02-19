@@ -1,0 +1,2 @@
+Le dossier app/ contiendra toute la machinerie du projet (controleurs, modeles, initialisateur (init.php)...).
+C'est également ici que seront contenues les différentes vues.
