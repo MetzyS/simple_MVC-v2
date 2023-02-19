@@ -2,9 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Core\Model;
+use App\Models\M_User;
 
-class Home extends Model
+// include './app/models/M_User.php';
+
+// use App\Core\Model;
+// include '../core/Model.php';
+
+class Home extends M_User
 {
     /**
      * Affiche views/index.php
@@ -12,7 +17,7 @@ class Home extends Model
     public function index()
     {
         $this->view('home/index', [
-            'data' => 'wesh'
+            'data' => 'test'
         ]);
     }
 

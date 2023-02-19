@@ -1,7 +1,8 @@
 <?php
 session_start();
+// echo '<pre>';
+// print_r($_SERVER);
 
-use App\Core\App;
 // init.php initialise les configurations requises
 // on appelle ça "bootstrap"
 require_once '../app/init.php';

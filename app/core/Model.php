@@ -3,9 +3,10 @@
 
 namespace App\Core;
 
+use App\Core\DB;
 use \PDO;
 
-include 'DB.php';
+include_once 'DB.php';
 
 /**
  * Controller est le modèle sur lequel chaque controleur se basera.

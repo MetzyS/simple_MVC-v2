@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Core;
-
-use App\Controllers;
-use App\Models;
+// namespace App\Core;
 
 class App
 {
     // Lors de l'initialisation de l'application, on utilisera Home et Index par défault.
-    protected $controller = 'Home';
+    protected $controller = 'home';
     protected $method = 'index';
 
     // $params stockera les parametres présent dans l'URL 
@@ -23,7 +20,7 @@ class App
 
 
         if (is_null($url)) {
-            $url[0] = 'Home';
+            $url[0] = 'home';
         }
 
         // vérifie sur le controleur existe en prenant l'élement contenu dans $url[0]
