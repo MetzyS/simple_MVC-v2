@@ -1,6 +1,6 @@
 <?php
 
-// namespace App\Core;
+namespace App\Core;
 
 class App
 {
@@ -30,10 +30,13 @@ class App
             unset($url[0]);
         }
 
-        require_once('../app/controllers/' . $this->controller . 'Controller.php');
+        require('../app/controllers/' . $this->controller . 'Controller.php');
+        include('../app/views/template/navigation.php');
 
 
         // crée une instance du controleur
+        // var_dump($this->controller);
+        // die();
         $this->controller = new $this->controller;
 
         // vérifie si la methode (du controleur) existe en prenant l'élemennt contenu dans $url[1]

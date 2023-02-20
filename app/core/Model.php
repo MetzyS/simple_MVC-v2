@@ -28,6 +28,8 @@ class Model extends DB
      */
     public function view($view, $data = [])
     {
+        // include '../app/views/template/head.php';
+        // include '../app/views/template/navigation.php';
         require_once '../app/views/' . $view . '.php';
     }
 

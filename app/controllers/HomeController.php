@@ -1,13 +1,6 @@
 <?php
 
-namespace App\Controllers;
-
 use App\Models\M_User;
-
-// include './app/models/M_User.php';
-
-// use App\Core\Model;
-// include '../core/Model.php';
 
 class Home extends M_User
 {
