@@ -24,19 +24,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `categories`
+-- Structure de la table `categorie`
 --
 
-CREATE TABLE `categories` (
-  `id_categories` int(11) NOT NULL,
+CREATE TABLE `categorie` (
+  `id_categorie` int(11) NOT NULL,
   `nom_cat` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `categories`
+-- Déchargement des données de la table `categorie`
 --
 
-INSERT INTO `categories` (`id_categories`, `nom_cat`) VALUES
+INSERT INTO `categorie` (`id_categorie`, `nom_cat`) VALUES
 (1, 'combat'),
 (2, 'aventure'),
 (3, 'logique');
@@ -59,11 +59,11 @@ CREATE TABLE `client` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commandes`
+-- Structure de la table `commande`
 --
 
-CREATE TABLE `commandes` (
-  `id_commandes` int(11) NOT NULL,
+CREATE TABLE `commande` (
+  `id_commande` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL
@@ -87,55 +87,60 @@ CREATE TABLE `console` (
 INSERT INTO `console` (`id_console`, `nom`) VALUES
 (1, 'nes'),
 (2, 'xbox 360'),
-(3, 'PC');
+(3, 'PC'),
+(4, 'GBA'),
+(5, 'PS4'),
+(6, 'PS5');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `exemplaires`
+-- Structure de la table `exemplaire`
 --
 
-CREATE TABLE `exemplaires` (
-  `id_exemplaires` int(11) NOT NULL,
-  `jeux_id` int(11) NOT NULL,
+CREATE TABLE `exemplaire` (
+  `id_exemplaire` int(11) NOT NULL,
+  `jeu_id` int(11) NOT NULL,
   `console_id` int(11) NOT NULL,
   `prix` decimal(10,2) NOT NULL,
   `image` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `exemplaires`
+-- Déchargement des données de la table `exemplaire`
 --
 
-INSERT INTO `exemplaires` (`id_exemplaires`, `jeux_id`, `console_id`, `prix`, `image`) VALUES
+INSERT INTO `exemplaire` (`id_exemplaire`, `jeu_id`, `console_id`, `prix`, `image`) VALUES
 (1, 1, 1, '30.00', 'zelda-nes.jpeg'),
 (2, 2, 2, '10.00', 'skyrim.png'),
 (3, 3, 1, '5.00', 'tekken.png'),
 (4, 4, 1, '10.00', 'mortal.jpg'),
-(5, 5, 3, '3.50', 'portal2.jpg');
+(5, 5, 3, '3.50', 'portal2.jpg'),
+(6, 6, 3, '3.00', 'portal2.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `jeux`
+-- Structure de la table `jeu`
 --
 
-CREATE TABLE `jeux` (
-  `id_jeux` int(11) NOT NULL,
-  `nom_jeux` varchar(45) NOT NULL,
-  `categories_id` int(11) NOT NULL
+CREATE TABLE `jeu` (
+  `id_jeu` int(11) NOT NULL,
+  `nom_jeu` varchar(45) NOT NULL,
+  `categorie_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `jeux`
+-- Déchargement des données de la table `jeu`
 --
 
-INSERT INTO `jeux` (`id_jeux`, `nom_jeux`, `categories_id`) VALUES
+INSERT INTO `jeu` (`id_jeu`, `nom_jeu`, `categorie_id`) VALUES
 (1, 'the legend of zelda', 2),
 (2, 'skyrim', 2),
 (3, 'tekken', 1),
 (4, 'Mortal Kombat', 1),
-(5, 'Portal 2', 3);
+(5, 'Portal 2', 3),
+(6, 'Pokemon Rouge', 4);
 
 -- --------------------------------------------------------
 
@@ -145,8 +150,8 @@ INSERT INTO `jeux` (`id_jeux`, `nom_jeux`, `categories_id`) VALUES
 
 CREATE TABLE `lignes_commande` (
   `id_ligne` int(11) NOT NULL,
-  `commandes_id` int(11) NOT NULL,
-  `exemplaires_id` int(11) NOT NULL
+  `commande_id` int(11) NOT NULL,
+  `exemplaire_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -166,10 +171,10 @@ CREATE TABLE `ville` (
 --
 
 --
--- Index pour la table `categories`
+-- Index pour la table `categorie`
 --
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id_categories`);
+ALTER TABLE `categorie`
+  ADD PRIMARY KEY (`id_categorie`);
 
 --
 -- Index pour la table `client`
@@ -179,11 +184,11 @@ ALTER TABLE `client`
   ADD KEY `fk_client_ville_idx` (`ville_id`);
 
 --
--- Index pour la table `commandes`
+-- Index pour la table `commande`
 --
-ALTER TABLE `commandes`
-  ADD PRIMARY KEY (`id_commandes`),
-  ADD KEY `fk_commandes_client_idx` (`client_id`);
+ALTER TABLE `commande`
+  ADD PRIMARY KEY (`id_commande`),
+  ADD KEY `fk_commande_client_idx` (`client_id`);
 
 --
 -- Index pour la table `console`
@@ -192,27 +197,27 @@ ALTER TABLE `console`
   ADD PRIMARY KEY (`id_console`);
 
 --
--- Index pour la table `exemplaires`
+-- Index pour la table `exemplaire`
 --
-ALTER TABLE `exemplaires`
-  ADD PRIMARY KEY (`id_exemplaires`),
-  ADD KEY `fk_exemplaires_jeux_idx` (`jeux_id`),
-  ADD KEY `fk_exemplaires_console_idx` (`console_id`);
+ALTER TABLE `exemplaire`
+  ADD PRIMARY KEY (`id_exemplaire`),
+  ADD KEY `fk_exemplaire_jeu_idx` (`jeu_id`),
+  ADD KEY `fk_exemplaire_console_idx` (`console_id`);
 
 --
--- Index pour la table `jeux`
+-- Index pour la table `jeu`
 --
-ALTER TABLE `jeux`
-  ADD PRIMARY KEY (`id_jeux`),
-  ADD KEY `fk_jeux_categories1_idx` (`categories_id`);
+ALTER TABLE `jeu`
+  ADD PRIMARY KEY (`id_jeu`),
+  ADD KEY `fk_jeu_categorie1_idx` (`categorie_id`);
 
 --
 -- Index pour la table `lignes_commande`
 --
 ALTER TABLE `lignes_commande`
   ADD PRIMARY KEY (`id_ligne`),
-  ADD KEY `fk_commandes_has_exemplaires_exemplaires1_idx` (`exemplaires_id`),
-  ADD KEY `fk_commandes_has_exemplaires_commandes1_idx` (`commandes_id`);
+  ADD KEY `fk_commande_has_exemplaire_exemplaire1_idx` (`exemplaire_id`),
+  ADD KEY `fk_commande_has_exemplaire_commande1_idx` (`commande_id`);
 
 --
 -- Index pour la table `ville`
@@ -225,10 +230,10 @@ ALTER TABLE `ville`
 --
 
 --
--- AUTO_INCREMENT pour la table `categories`
+-- AUTO_INCREMENT pour la table `categorie`
 --
-ALTER TABLE `categories`
-  MODIFY `id_categories` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `categorie`
+  MODIFY `id_categorie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `client`
@@ -237,10 +242,10 @@ ALTER TABLE `client`
   MODIFY `id_client` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `commandes`
+-- AUTO_INCREMENT pour la table `commande`
 --
-ALTER TABLE `commandes`
-  MODIFY `id_commandes` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `commande`
+  MODIFY `id_commande` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `console`
@@ -249,16 +254,16 @@ ALTER TABLE `console`
   MODIFY `id_console` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT pour la table `exemplaires`
+-- AUTO_INCREMENT pour la table `exemplaire`
 --
-ALTER TABLE `exemplaires`
-  MODIFY `id_exemplaires` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `exemplaire`
+  MODIFY `id_exemplaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT pour la table `jeux`
+-- AUTO_INCREMENT pour la table `jeu`
 --
-ALTER TABLE `jeux`
-  MODIFY `id_jeux` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `jeu`
+  MODIFY `id_jeu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `lignes_commande`
@@ -283,30 +288,30 @@ ALTER TABLE `client`
   ADD CONSTRAINT `fk_client_ville` FOREIGN KEY (`ville_id`) REFERENCES `ville` (`id_ville`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `commandes`
+-- Contraintes pour la table `commande`
 --
-ALTER TABLE `commandes`
-  ADD CONSTRAINT `fk_commandes_client` FOREIGN KEY (`client_id`) REFERENCES `client` (`id_client`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `commande`
+  ADD CONSTRAINT `fk_commande_client` FOREIGN KEY (`client_id`) REFERENCES `client` (`id_client`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `exemplaires`
+-- Contraintes pour la table `exemplaire`
 --
-ALTER TABLE `exemplaires`
-  ADD CONSTRAINT `fk_exemplaires_console` FOREIGN KEY (`console_id`) REFERENCES `console` (`id_console`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_exemplaires_jeux` FOREIGN KEY (`jeux_id`) REFERENCES `jeux` (`id_jeux`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `exemplaire`
+  ADD CONSTRAINT `fk_exemplaire_console` FOREIGN KEY (`console_id`) REFERENCES `console` (`id_console`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_exemplaire_jeu` FOREIGN KEY (`jeu_id`) REFERENCES `jeu` (`id_jeu`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `jeux`
+-- Contraintes pour la table `jeu`
 --
-ALTER TABLE `jeux`
-  ADD CONSTRAINT `fk_jeux_categories1` FOREIGN KEY (`categories_id`) REFERENCES `categories` (`id_categories`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `jeu`
+  ADD CONSTRAINT `fk_jeu_categorie1` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id_categorie`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `lignes_commande`
 --
 ALTER TABLE `lignes_commande`
-  ADD CONSTRAINT `fk_commandes_has_exemplaires_commandes1` FOREIGN KEY (`commandes_id`) REFERENCES `commandes` (`id_commandes`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_commandes_has_exemplaires_exemplaires1` FOREIGN KEY (`exemplaires_id`) REFERENCES `exemplaires` (`id_exemplaires`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_commande_has_exemplaire_commande1` FOREIGN KEY (`commande_id`) REFERENCES `commande` (`id_commande`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_commande_has_exemplaire_exemplaire1` FOREIGN KEY (`exemplaire_id`) REFERENCES `exemplaire` (`id_exemplaire`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
