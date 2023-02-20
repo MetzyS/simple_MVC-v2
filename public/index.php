@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../app/views/template/head.php';
+include '../app/views/template/navigation.php';
 // echo '<pre>';
 // print_r($_SERVER);
 use App\Core\App;

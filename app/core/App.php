@@ -30,8 +30,8 @@ class App
             unset($url[0]);
         }
 
+        // include('../app/views/template/navigation.php');
         require('../app/controllers/' . $this->controller . 'Controller.php');
-        include('../app/views/template/navigation.php');
 
 
         // crée une instance du controleur

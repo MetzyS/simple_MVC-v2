@@ -8,12 +8,11 @@ use \PDO;
 
 // include_once '../app/core/Model.php';
 
-class M_Jeu extends Model
+class M_Categorie extends Model
 {
-    protected $table = 'jeu';
-    protected $nom_jeu = 'nom_jeu';
-    protected $categorie_id = 'categorie_id';
-    protected $id = 'id_jeu';
+    protected $table = 'categorie';
+    protected $nom_categorie = 'nom_categorie';
+    protected $id = 'id_categorie';
 
     public function categorie($id = null)
     {
@@ -23,7 +22,7 @@ class M_Jeu extends Model
             $data = $requete->fetchAll(PDO::FETCH_NAMED);
             return $data;
         } else {
-            $sql = 'SELECT * FROM categorie WHERE id_categorie = ' . $id;
+            $sql = 'SELECT * FROM jeu WHERE categorie_id = ' . $id;
             $requete = DB::query($sql);
             $data = $requete->fetchAll(PDO::FETCH_ASSOC);
             return $data;

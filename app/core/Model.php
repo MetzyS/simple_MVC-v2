@@ -39,12 +39,12 @@ class Model extends DB
     public function find($id = null)
     {
         if (is_null($id)) {
-            $sql = 'SELECT * FROM jeux';
+            $sql = 'SELECT * FROM jeu';
             $requete = DB::query($sql);
             $data = $requete->fetchAll(PDO::FETCH_NAMED);
             return $data;
         } else {
-            $sql = 'SELECT * FROM jeux WHERE id_jeux = ' . $id;
+            $sql = 'SELECT * FROM jeu WHERE id_jeu = ' . $id;
             $requete = DB::query($sql);
             $data = $requete->fetchAll(PDO::FETCH_ASSOC);
             return $data;
