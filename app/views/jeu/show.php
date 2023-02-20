@@ -1,4 +1,5 @@
 <h1>Jeu/show.php</h1>
+
 <ul>
     <?php
     echo '<pre>';
