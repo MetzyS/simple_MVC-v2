@@ -134,3 +134,7 @@ input[type="submit"] {
     border: #DDEEFF 1px solid;
     width: 30%;
 }
+
+.titre_jeu {
+    font-weight: bold;
+}

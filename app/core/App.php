@@ -35,8 +35,6 @@ class App
 
 
         // crée une instance du controleur
-        // var_dump($this->controller);
-        // die();
         $this->controller = new $this->controller;
 
         // vérifie si la methode (du controleur) existe en prenant l'élemennt contenu dans $url[1]

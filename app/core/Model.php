@@ -28,8 +28,6 @@ class Model extends DB
      */
     public function view($view, $data = [])
     {
-        // include '../app/views/template/head.php';
-        // include '../app/views/template/navigation.php';
         require_once '../app/views/' . $view . '.php';
     }
 
@@ -39,15 +37,25 @@ class Model extends DB
     public function find($id = null)
     {
         if (is_null($id)) {
+            $db = DB::getPdo();
             $sql = 'SELECT * FROM jeu';
             $requete = DB::query($sql);
             $data = $requete->fetchAll(PDO::FETCH_NAMED);
             return $data;
         } else {
-            $sql = 'SELECT * FROM jeu WHERE id_jeu = ' . $id;
-            $requete = DB::query($sql);
-            $data = $requete->fetchAll(PDO::FETCH_ASSOC);
+            $db = DB::getPdo();
+            $sql = $db->prepare('SELECT * FROM jeu WHERE id_jeu = :id ');
+            $sql->bindParam(':id', $id);
+            $sql->execute();
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         }
     }
+    
+    public function exemplaire($id = null)
+    {
+        $db = DB::getPdo();
+
+    }
+
 }

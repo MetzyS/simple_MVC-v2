@@ -15,9 +15,6 @@ class Jeu extends M_Jeu
      */
     public function index()
     {
-        // $user = $this->model('User');
-        // $user->name = $name;
-
         $this->view('jeu/index', [
             'page' => 'jeu',
         ]);
@@ -29,11 +26,11 @@ class Jeu extends M_Jeu
     public function show($id = null)
     {
         $jeu =  $this->find($id);
-        $categorie = $this->categorie($id);
+        $categorie_menu = $this->categorie(null);
 
         $this->view('jeu/show', [
             'jeu' => $jeu,
-            'categorie' => $categorie,
+            'categorie_menu' => $categorie_menu,
         ]);
     }
 }

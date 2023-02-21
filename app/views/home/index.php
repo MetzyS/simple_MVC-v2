@@ -1,1 +1,2 @@
-<h1>Home/index.php</h1>
+<h1>Lord Of Geek</h1>
+<h2>le prince des jeux sur internet</h2>

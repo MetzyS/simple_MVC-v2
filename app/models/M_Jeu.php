@@ -6,7 +6,6 @@ use App\Core\Model;
 use App\Core\DB;
 use \PDO;
 
-// include_once '../app/core/Model.php';
 
 class M_Jeu extends Model
 {
@@ -23,9 +22,11 @@ class M_Jeu extends Model
             $data = $requete->fetchAll(PDO::FETCH_NAMED);
             return $data;
         } else {
-            $sql = 'SELECT * FROM categorie WHERE id_categorie = ' . $id;
-            $requete = DB::query($sql);
-            $data = $requete->fetchAll(PDO::FETCH_ASSOC);
+            $db = DB::getPdo();
+            $sql = $db->prepare('SELECT * FROM categorie WHERE id_categorie = :id');
+            $sql->bindParam(':id', $id);
+            $sql->execute();
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         }
     }

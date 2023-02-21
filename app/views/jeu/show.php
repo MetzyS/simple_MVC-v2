@@ -1,27 +1,31 @@
+<?php
+
+use App\Models\M_HTML;
+
+?>
+
+
 <h1>Jeu/show.php</h1>
 
 <p></p>
 
+<section id="visite">
+<aside>
 <ul>
     <?php
-    $cat_id = 1;
-    foreach ($data['categorie'] as $key => $value) {
-        echo '<li><a href="/www/simple_MVC-v2/public/categorie/show/' . $cat_id . '">' . $value['nom_categorie'] . '</a></li>';
-        $cat_id += 1;
-        // cette boucle = nom des categories
+    foreach ($data['categorie_menu'] as $key => $categorie) {
+        M_HTML::categorieMenu($categorie);
+        // cette boucle utilise la methode categorieMenu du modèle M_HTML
     };
-    $cat_id = 1;
     ?>
-    <br>
 </ul>
+</aside>
+</section>
+
 <?php
-foreach ($data['jeu'] as $key => $value) {
-    echo $value['nom_jeu'];
+// var_dump($data);
+// foreach ($data['jeu'] as $key => $value) {
+    // echo $value['nom_jeu'];
     // cette boucle = nom des jeux
-}
-
-
-
-// echo '<pre>';
-// print_r($data);
+// }
 ?>
