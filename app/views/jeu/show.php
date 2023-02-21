@@ -5,7 +5,8 @@ use App\Models\M_HTML;
 ?>
 
 
-<h1>Jeu/show.php</h1>
+<h1>Liste de tous les jeux</h1>
+<!-- <h4>Jeu/show.php</h4> -->
 
 <p></p>
 
@@ -20,12 +21,11 @@ use App\Models\M_HTML;
     ?>
 </ul>
 </aside>
-</section>
-
+<section id="jeu">
 <?php
-// var_dump($data);
-// foreach ($data['jeu'] as $key => $value) {
-    // echo $value['nom_jeu'];
-    // cette boucle = nom des jeux
-// }
-?>
+    foreach ($data['exemplaire'] as $key => $value) {
+        M_HTML::cardJeu($value);
+    }
+    ?>
+    </section>
+    </section>

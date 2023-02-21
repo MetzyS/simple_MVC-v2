@@ -1,3 +1,22 @@
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    font-weight: bold;
+}
+
+.panier-show {
+    display:flex;
+gap:50px;
+}
+
+.alert {
+    color: blue;
+    font-weight: bold;
+}
+
 body {
     width: 90%;
     margin: 0 5%;
@@ -58,6 +77,7 @@ header img {
 #menu li a,
 #categories li a {
     text-decoration: none;
+    color:black;
 }
 
 /* ---------- Jeux ----------------------------------------------------*/

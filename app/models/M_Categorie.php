@@ -37,18 +37,19 @@ class M_Categorie extends Model
             return $data;
         }
     }
-    public function exemplaire($id = null)
+
+    public function getNomCategorie($id = null)
     {
         if (is_null($id)) {
-            $sql = 'SELECT * FROM '. $this->table_exemplaire;
+            $sql = 'SELECT nom_categorie FROM '. $this->table;
             $requete = DB::query($sql);
             $data = $requete->fetchAll(PDO::FETCH_NAMED);
             return $data;
-        } 
+        }
         else
          {
             $db = DB::getPdo();
-            $sql = $db->prepare('SELECT * FROM '.$this->table_exemplaire.' JOIN jeu ON exemplaire.jeu_id = jeu.id_jeu  JOIN console ON exemplaire.console_id = console.id_console WHERE categorie_id = :id');
+            $sql = $db->prepare('SELECT nom_categorie FROM categorie WHERE id_categorie = :id');
             $sql->bindParam(':id', $id);
             $sql->execute();
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);

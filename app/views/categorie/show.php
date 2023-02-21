@@ -3,9 +3,9 @@
 use App\Models\M_HTML;
 
 ?>
-<!-- <link rel="stylesheet" href="\www\simple_MVC-v2\public\css\style.css"> -->
 
-<h1>Categorie/show.php</h1>
+<h1>Jeux de la catégorie <?=ucfirst($data['categorie_nom'][0]['nom_categorie'])?></h1>
+<!-- <h4>Categorie/show.php</h4> -->
 <section id="visite">
 <aside>
 <ul>
@@ -18,8 +18,7 @@ use App\Models\M_HTML;
 </ul>
 </aside>
 <section id="jeu">
-    <?php
-    // var_dump($data['exemplaire']);
+        <?php
     foreach ($data['exemplaire'] as $key => $value) {
         echo '<div class="card">';
         M_HTML::cardJeu($value);

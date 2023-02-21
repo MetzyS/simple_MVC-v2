@@ -1,22 +1,23 @@
 <?php
 
-// namespace App\Controllers;
-
 use App\Models\M_Panier;
-
-// include_once $_SERVER['DOCUMENT_ROOT'] . '/models/M_Jeu.php';
-// include './app/models/M_Jeu.php';
-
 
 class Panier extends M_Panier
 {
     /**
      * Affiche views/jeux/index.php
      */
-    public function index()
+    public function show()
     {
-        $this->view('panier/index', [
-            'page' => 'jeu',
+        //faire une requete qui nous donne tous le jeux du panier
+
+        // $ids = implode(",",$_SESSION["panier"]);
+        $ids = $_SESSION['panier'];
+        // var_dump($ids);
+        // die();
+        $panier = $this->exemplairePanier($ids);
+        $this->view('panier/show', [
+            'panier' => $panier,
         ]);
     }
 }

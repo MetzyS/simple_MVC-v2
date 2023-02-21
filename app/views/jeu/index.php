@@ -1,1 +1,1 @@
-<h1>Jeu/index.php</h1>
+<h4>Jeu/index.php</h4>

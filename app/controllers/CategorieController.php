@@ -2,7 +2,6 @@
 
 use App\Models\M_Categorie;
 
-
 class Categorie extends M_Categorie
 {
     /**
@@ -23,11 +22,13 @@ class Categorie extends M_Categorie
         $categorie = $this->categorie($id);
         $categorie_menu = $this->categorie(null);
         $exemplaire = $this->exemplaire($id);
+        $categorie_nom = $this->getNomCategorie($id);
 
         $this->view('categorie/show', [
             'categorie' => $categorie,
             'categorie_menu' => $categorie_menu,
             'exemplaire' => $exemplaire,
+            'categorie_nom' => $categorie_nom,
         ]);
     }
 
