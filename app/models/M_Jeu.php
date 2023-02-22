@@ -9,7 +9,6 @@ use \PDO;
 
 class M_Jeu extends Model
 {
-    // protected $table = 'jeu';
     protected $nom_jeu = 'nom_jeu';
     protected $categorie_id = 'categorie_id';
     protected $id = 'id_jeu';

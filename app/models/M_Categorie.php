@@ -9,7 +9,6 @@ use \PDO;
 
 class M_Categorie extends Model
 {
-    // protected $table = 'categorie';
     protected $nom_categorie = 'nom_categorie';
     protected $id = 'id_categorie';
     protected $table_exemplaire = 'exemplaire';

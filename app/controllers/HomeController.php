@@ -2,14 +2,19 @@
 
 use App\Models\M_User;
 
-class Home extends M_User
+class Home
 {
+    protected $model;
+    public function __construct()
+    {
+        $this->model = new M_User();
+    }
     /**
      * Affiche views/index.php
      */
     public function index()
     {
-        $this->view('home/index', [
+        $this->model->view('home/index', [
             'data' => 'test'
         ]);
     }
@@ -19,9 +24,9 @@ class Home extends M_User
      */
     public function show($id = null)
     {
-        $jeu =  $this->find($id);
+        $jeu =  $this->model->find($id);
 
-        $this->view('home/show', [
+        $this->model->view('home/show', [
             'data' => $jeu,
         ]);
     }
