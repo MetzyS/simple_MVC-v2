@@ -30,14 +30,13 @@ class M_Categorie extends Model
             $sql = 'SELECT nom_categorie FROM ' . $this->table;
             $requete = DB::query($sql);
             $data = $requete->fetchAll(PDO::FETCH_NAMED);
-            return $data;
         } else {
             $db = DB::getPdo();
             $sql = $db->prepare('SELECT nom_categorie FROM categorie WHERE id_categorie = :id');
             $sql->bindParam(':id', $id);
             $sql->execute();
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);
-            return $data;
         }
+        return $data;
     }
 }

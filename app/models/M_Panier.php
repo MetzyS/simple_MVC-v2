@@ -20,8 +20,7 @@ class M_Panier extends Model
     public function exemplairePanier($ids)
     {
         if (count($ids) == 0) {
-            $data = 'Votre panier est vide';
-            return $data;
+            $data = "Votre panier est vide";
         } else {
             $db = DB::getPdo();
 
@@ -40,8 +39,9 @@ class M_Panier extends Model
 
             $stm->execute($array);
 
-            return $stm->fetchAll(PDO::FETCH_ASSOC);
+            $data = $stm->fetchAll(PDO::FETCH_ASSOC);
         }
+        return $data;
     }
     // Nous effectuons plusieurs traitements sur $sql car pour la requête SQL WHERE ... IN ..., nous devons injecter des valeurs entourés de quotes et séparés par une ",". 
 }
