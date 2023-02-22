@@ -2,8 +2,13 @@
 
 use App\Models\M_Panier;
 
-class Panier extends M_Panier
+class Panier
 {
+    protected $model;
+    public function __construct()
+    {
+        $this->model = new M_Panier();
+    }
     /**
      * Affiche views/jeux/index.php
      */
@@ -13,10 +18,9 @@ class Panier extends M_Panier
 
         // $ids = implode(",",$_SESSION["panier"]);
         $ids = $_SESSION['panier'];
-        // var_dump($ids);
-        // die();
-        $panier = $this->exemplairePanier($ids);
-        $this->view('panier/show', [
+        // var_dump($_SESSION['panier']);
+        $panier = $this->model->exemplairePanier($ids);
+        $this->model->view('panier/show', [
             'panier' => $panier,
         ]);
     }

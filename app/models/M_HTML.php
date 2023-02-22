@@ -22,9 +22,8 @@ class M_HTML
             <p> Nom du jeu: <span class="titre_jeu">' . ucwords($nom) . '</span></p>
             <p> Console: ' . strtoUpper($console) . '</p>
             <p> Etat: ' . ucfirst($etat) . '</p>
-            <p> Prix: ' . $prix . ' € <a href="/www/simple_MVC-v2/app/views/panier/ajouter.php?id='.$id.'"><img src="/www/simple_MVC-v2/public/images/mettrepanier.png" title="Ajouter au panier" class="add"></a></p>
+            <p> Prix: ' . $prix . ' € <a href="/www/simple_MVC-v2/app/views/panier/ajouter.php?id=' . $id . '"><img src="/www/simple_MVC-v2/public/images/mettrepanier.png" title="Ajouter au panier" class="add"></a></p>
             </article>';
-            
     }
 
     /**
@@ -45,9 +44,8 @@ class M_HTML
             <p> Nom du jeu: <span class="titre_jeu">' . ucwords($nom) . '</span></p>
             <p> Console: ' . strtoUpper($console) . '</p>
             <p> Etat: ' . ucfirst($etat) . '</p>
-            <p> Prix: ' . $prix . ' € <a href="/www/simple_MVC-v2/app/views/panier/retirer.php?id='.$id.'"><img src="/www/simple_MVC-v2/public/images/mettrepanier.png" title="Ajouter au panier" class="add"></a></p>
+            <p> Prix: ' . $prix . ' € <a href="/www/simple_MVC-v2/app/views/panier/retirer.php?id=' . $id . '"><img src="/www/simple_MVC-v2/public/images/retirerpanier.png" title="Ajouter au panier" class="add"></a></p>
             </article>';
-            
     }
 
     /**
@@ -58,6 +56,6 @@ class M_HTML
         $nom = $categorie['nom_categorie'];
         $id = $categorie['id_categorie'];
 
-        echo '<li><a href="/www/simple_MVC-v2/public/categorie/show/' . $categorie['id_categorie']. '">' . $categorie['nom_categorie'] . '</a></li>';
+        echo '<li><a href="/www/simple_MVC-v2/public/categorie/show/' . $id . '">' . $nom . '</a></li>';
     }
 }

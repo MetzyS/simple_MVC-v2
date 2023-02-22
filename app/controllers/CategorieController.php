@@ -2,14 +2,19 @@
 
 use App\Models\M_Categorie;
 
-class Categorie extends M_Categorie
+class Categorie
 {
+    protected $model;
+    public function __construct()
+    {
+        $this->model = new M_Categorie();
+    }
     /**
      * Affiche views/categorie/index.php
      */
     public function index()
     {
-        $this->view('categorie/index', [
+        $this->model->view('categorie/index', [
             'page' => 'categorie',
         ]);
     }
@@ -19,12 +24,12 @@ class Categorie extends M_Categorie
      */
     public function show($id = null)
     {
-        $categorie = $this->categorie($id);
-        $categorie_menu = $this->categorie(null);
-        $exemplaire = $this->exemplaire($id);
-        $categorie_nom = $this->getNomCategorie($id);
+        $categorie = $this->model->categorie($id);
+        $categorie_menu = $this->model->categorie(null);
+        $exemplaire = $this->model->exemplaire($id);
+        $categorie_nom = $this->model->getNomCategorie($id);
 
-        $this->view('categorie/show', [
+        $this->model->view('categorie/show', [
             'categorie' => $categorie,
             'categorie_menu' => $categorie_menu,
             'exemplaire' => $exemplaire,
@@ -32,4 +37,10 @@ class Categorie extends M_Categorie
         ]);
     }
 
+    public function test()
+    {
+        $data = $this->model->find();
+        var_dump($data);
+        die();
+    }
 }

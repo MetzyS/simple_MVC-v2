@@ -14,6 +14,12 @@ include_once 'DB.php';
  */
 class Model extends DB
 {
+    public function __construct($table)
+    {
+        $this->table = $table;
+    }
+
+    protected $table = null;
     protected $table_exemplaire = 'exemplaire';
     /**
      * Permet de charger un modèle et de le return sous forme d'objet
@@ -39,33 +45,13 @@ class Model extends DB
     {
         if (is_null($id)) {
             $db = DB::getPdo();
-            $sql = 'SELECT * FROM jeu';
+            $sql = 'SELECT * FROM ' . $this->table;
             $requete = DB::query($sql);
             $data = $requete->fetchAll(PDO::FETCH_NAMED);
             return $data;
         } else {
             $db = DB::getPdo();
-            $sql = $db->prepare('SELECT * FROM jeu WHERE id_jeu = :id ');
-            $sql->bindParam(':id', $id);
-            $sql->execute();
-            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
-            return $data;
-        }
-    }
-    
-    public function exemplaire($id = null)
-    {
-        if (is_null($id)) {
-            $sql = 'SELECT * FROM '.$this->table_exemplaire.' JOIN jeu ON exemplaire.jeu_id = jeu.id_jeu  JOIN console ON exemplaire.console_id = console.id_console';
-            // $sql = 'SELECT * FROM '. $this->table_exemplaire;
-            $requete = DB::query($sql);
-            $data = $requete->fetchAll(PDO::FETCH_NAMED);
-            return $data;
-        } 
-        else
-         {
-            $db = DB::getPdo();
-            $sql = $db->prepare('SELECT * FROM '.$this->table_exemplaire.' JOIN jeu ON exemplaire.jeu_id = jeu.id_jeu  JOIN console ON exemplaire.console_id = console.id_console WHERE categorie_id = :id');
+            $sql = $db->prepare('SELECT * FROM ' . $this->table . ' WHERE id_' . $this->table . ' = :id ');
             $sql->bindParam(':id', $id);
             $sql->execute();
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -73,4 +59,38 @@ class Model extends DB
         }
     }
 
+    public function exemplaire($id = null)
+    {
+        if (is_null($id)) {
+            $sql = 'SELECT * FROM ' . $this->table_exemplaire . ' JOIN jeu ON exemplaire.jeu_id = jeu.id_jeu  JOIN console ON exemplaire.console_id = console.id_console';
+            // $sql = 'SELECT * FROM '. $this->table_exemplaire;
+            $requete = DB::query($sql);
+            $data = $requete->fetchAll(PDO::FETCH_NAMED);
+            return $data;
+        } else {
+            $db = DB::getPdo();
+            $sql = $db->prepare('SELECT * FROM ' . $this->table_exemplaire . ' JOIN jeu ON exemplaire.jeu_id = jeu.id_jeu  JOIN console ON exemplaire.console_id = console.id_console WHERE categorie_id = :id');
+            $sql->bindParam(':id', $id);
+            $sql->execute();
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+        }
+    }
+
+    public function categorie($id = null)
+    {
+        if (is_null($id)) {
+            $sql = 'SELECT * FROM categorie';
+            $requete = DB::query($sql);
+            $data = $requete->fetchAll(PDO::FETCH_NAMED);
+            return $data;
+        } else {
+            $db = DB::getPdo();
+            $sql = $db->prepare('SELECT * FROM categorie WHERE id_categorie = :id');
+            $sql->bindParam(':id', $id);
+            $sql->execute();
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+        }
+    }
 }

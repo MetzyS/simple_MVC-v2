@@ -2,14 +2,19 @@
 
 use App\Models\M_Jeu;
 
-class Jeu extends M_Jeu
+class Jeu
 {
+    protected $model;
+    public function __construct()
+    {
+        $this->model = new M_Jeu();
+    }
     /**
      * Affiche views/jeux/index.php
      */
     public function index()
     {
-        $this->view('jeu/index', [
+        $this->model->view('jeu/index', [
             'page' => 'jeu',
         ]);
     }
@@ -19,11 +24,11 @@ class Jeu extends M_Jeu
      */
     public function show($id = null)
     {
-        $jeu =  $this->find($id);
-        $categorie_menu = $this->categorie(null);
-        $exemplaire = $this->exemplaire(null);
+        $jeu =  $this->model->find($id);
+        $categorie_menu = $this->model->categorie(null);
+        $exemplaire = $this->model->exemplaire(null);
 
-        $this->view('jeu/show', [
+        $this->model->view('jeu/show', [
             'jeu' => $jeu,
             'categorie_menu' => $categorie_menu,
             'exemplaire' => $exemplaire,
