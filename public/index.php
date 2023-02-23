@@ -6,6 +6,9 @@ include '../app/views/template/navigation.php';
 
 use App\Core\App;
 
+if(!isset($_SESSION['utilisateur'])) {
+    $_SESSION['utilisateur'] = null;
+}
 if(!isset($_SESSION['panier'])) {
     $_SESSION['panier'] = [];
 }

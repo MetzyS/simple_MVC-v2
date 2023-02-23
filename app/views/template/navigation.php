@@ -1,3 +1,8 @@
+<?php 
+$lienInscription = '/www/simple_MVC-v2/public/compte/inscription/';
+$lienInformations = '/www/simple_MVC-v2/public/compte/informations/';
+$lienAuthentification = '/www/simple_MVC-v2/public/compte/authentification/';
+?>
 <header>
     <!-- Images En-tête -->
     <img src="/www/simple_MVC-v2/public/images/logo.png" alt="Logo Lord Of Geek" />
@@ -16,7 +21,12 @@
                     }
                     ?>
                 </a></li>
-            <li><a href="#"> Mon compte </a></li>
+            <li><a href=<?php if(!isset($_SESSION['utilisateur']) || is_null($_SESSION['utilisateur'])){
+                echo '"'.$lienAuthentification.'"';
+            } else {
+                echo '"'.$lienInformations.'"';
+            }
+            ?>> Mon compte </a></li>
         </ul>
     </nav>
 

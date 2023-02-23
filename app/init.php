@@ -7,3 +7,4 @@ require_once '../app/models/M_User.php';
 require_once '../app/models/M_HTML.php';
 require_once '../app/models/M_Categorie.php';
 require_once '../app/models/M_Panier.php';
+require_once '../app/models/M_Compte.php';

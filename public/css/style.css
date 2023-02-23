@@ -122,25 +122,32 @@ header img {
 /* ---------- Formulaire ----------------------------------------------------*/
 
 fieldset {
-    display: block;
-    width: 50%;
+    display: flex;
+    flex-direction: column;
     border: 1px dotted #353535;
-    padding: 5px;
+    width: 30%;
+    padding: 20px;
     overflow: hidden;
+    gap:10px;
+}
+
+.input-container {
+    display:flex;
+    flex-direction: column;
 }
 
 label {
     background: transparent none;
-    display: block;
-    width: 20%;
+    display:block;
     float: left;
+    width: 30%;
     padding-right: 1%;
     text-align: left;
 }
 
 input {
-    margin-left: 1%;
-    width: 30%;
+    width: 60%;
+    height: 30px;
     border: #CCC 1px solid;
 }
 
@@ -150,9 +157,10 @@ input:hover,
     background-color: #DDEEFF;
 }
 
-input[type="submit"] {
-    border: #DDEEFF 1px solid;
-    width: 30%;
+input[type="submit"], button[type="submit"] {
+    border: 1px dotted #353535;
+    width: 60%;
+    height: 30px;
 }
 
 .titre_jeu {
