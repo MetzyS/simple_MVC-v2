@@ -1,5 +1,4 @@
 <?php
-use App\Model\M_Compte;
 session_start();
 // Cette page récupère les informations contenus dans les champs de saisie de la page "inscription.php"
 // Ces infos seront stockés dans la session $_SESSION['client']
@@ -15,7 +14,8 @@ $cp = filter_input(INPUT_POST, 'cp');
 $_SESSION['client'] = [$nom,$prenom,$mail,$mdp,$adresse,$ville,$cp];
 $_SESSION['client'] = array_combine($array, $_SESSION['client']);
 
-var_dump($_SESSION['client']);
-die();
+// $compteController = new Compte();
+// $check = $compteController->checkMail($mail);
 
+header('Location: /www/simple_MVC-v2/public/compte/index/');
 
