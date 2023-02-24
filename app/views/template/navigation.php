@@ -1,7 +1,8 @@
-<?php 
+<?php
 $lienInscription = '/www/simple_MVC-v2/public/compte/inscription/';
 $lienInformations = '/www/simple_MVC-v2/public/compte/informations/';
 $lienAuthentification = '/www/simple_MVC-v2/public/compte/authentification/';
+$lienDeconnexion = '/www/simple_MVC-v2/app/views/compte/deconnexion.php';
 ?>
 <header>
     <!-- Images En-tête -->
@@ -21,13 +22,13 @@ $lienAuthentification = '/www/simple_MVC-v2/public/compte/authentification/';
                     }
                     ?>
                 </a></li>
-            <li><a href=<?php if(!isset($_SESSION['utilisateur']) || is_null($_SESSION['utilisateur'])){
-                echo '"'.$lienAuthentification.'"';
-            } else {
-                echo '"'.$lienInformations.'"';
-            }
-            ?>> Mon compte </a></li>
-        </ul>
+            <li><a href=<?php if (!isset($_SESSION['utilisateur']) || is_null($_SESSION['utilisateur'])) {
+                            echo '"' . $lienAuthentification . '"> Mon compte </a></li>';
+                        } else {
+                            echo '"' . $lienInformations . '"> Mon compte </a></li>';
+                            echo '<li><a href="' . $lienDeconnexion . '"> Se deconnecter</a></li>';
+                        }
+                        ?> </ul>
     </nav>
 
 </header>

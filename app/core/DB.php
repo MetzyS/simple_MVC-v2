@@ -29,4 +29,19 @@ class DB
     {
         return DB::getPdo()->exec($requete_sql);
     }
+
+    public static function beginTransaction()
+    {
+        return DB::getPdo()->beginTransaction();
+    }
+
+    public static function commit()
+    {
+        return DB::getPdo()->commit();
+    }
+
+    public static function rollback()
+    {
+        return DB::getPdo()->rollback();
+    }
 }

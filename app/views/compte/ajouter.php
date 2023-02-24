@@ -11,11 +11,10 @@ $adresse = filter_input(INPUT_POST, 'adresse');
 $ville = filter_input(INPUT_POST, 'ville');
 $cp = filter_input(INPUT_POST, 'cp');
 
-$_SESSION['client'] = [$nom,$prenom,$mail,$mdp,$adresse,$ville,$cp];
+$_SESSION['client'] = [$nom, $prenom, $mail, $mdp, $adresse, $ville, $cp];
 $_SESSION['client'] = array_combine($array, $_SESSION['client']);
 
 // $compteController = new Compte();
 // $check = $compteController->checkMail($mail);
 
 header('Location: /www/simple_MVC-v2/public/compte/index/');
-

@@ -9,14 +9,8 @@ use \PDO;
 
 class M_Compte extends Model
 {
-    // protected $nom_client = 'nom_client';
-    // protected $prenom_client = 'prenom_client';
-    // protected $adresse = 'adresse';
-    // protected $ville_id = 'ville_id';
     protected $table_ville = 'ville';
-    // protected $mail = 'mail';
-    // protected $mot_de_passe = 'mot_de_passe';
-    // protected $id = 'id_client';
+
 
     public function __construct()
     {
@@ -24,40 +18,23 @@ class M_Compte extends Model
     }
 
     /**
-     * Récupère l'ID d'un client enregistré
-     * via les infos stockés dans $_SESSION['client']
-     */
-    public function getId($array) {
-        $db = DB::getPdo();
-
-        $sql = $db->prepare('SELECT id_client FROM `'.$this->table.'` WHERE mail = :mail');
-        $sql->bindParam(':mail', $array['mail']);
-        $sql->execute();
-
-        $data = $sql->fetchAll(PDO::FETCH_NAMED);
-        $_SESSION['client']['id_client'] = $data['id_client'];
-        return $data;
-    }
-    
-
-    /**
      * Vérifie si l'adresse mail existe déjà
      * @param string adresse mail
      * @return bool
      */
-    public function checkMail(string $mail) {
+    public function checkMail(string $mail)
+    {
         $db = DB::getPdo();
 
-        $sql = $db->prepare('SELECT mail FROM `'.$this->table.'` WHERE mail = :mail');
+        $sql = $db->prepare('SELECT mail FROM client WHERE mail = :mail');
         $sql->bindParam(':mail', $mail);
         $sql->execute();
 
         $data = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-        if(count($data) > 0) {
+        if (count($data) > 0) {
             $data = false;
-        }
-        else {
+        } else {
             $data = true;
         }
         return $data;
@@ -70,27 +47,28 @@ class M_Compte extends Model
      * @param string (nom_ville)
      * @return array $array['id_ville'] = INT
      */
-    public function selectOrInsert($cp, $ville) {
+    public function selectOrInsert($cp, $ville)
+    {
         $db = DB::getPdo();
         $sql = $db->prepare('SELECT id_ville FROM ville WHERE ville = :nom_ville');
         $sql->bindParam(':nom_ville', $ville);
         $sql->execute();
-        
+
         $data = $sql->fetch(PDO::FETCH_NAMED);
         // return false si la ville n'existe pas
 
         if ($data == false) {
             // crée la ville dans la base de données
             $id = " ";
-            
+
             $sql = $db->prepare('INSERT INTO ville VALUES(:id, :cp, :nom_ville)');
             $sql->bindParam(':id', $id);
             $sql->bindParam(':cp', $cp);
             $sql->bindParam(':nom_ville', $ville);
-            
+
             $sql->execute();
-            
-            
+
+
             // récupère l'id de la ville crée
             $stmt = $db->prepare('SELECT id_ville FROM ville WHERE ville = :nom_ville');
             $stmt->bindParam(':nom_ville', $ville);
@@ -109,7 +87,8 @@ class M_Compte extends Model
      * @param array
      * @return array
      */
-    public function create(array $array, array $ville_id) {
+    public function create(array $array, array $ville_id)
+    {
         $db = DB::getPdo();
         $id = " ";
 
@@ -127,10 +106,48 @@ class M_Compte extends Model
 
         $data = $sql->fetch();
 
-        $data['id_client'] = $this->getId($data);
-        echo '<pre>';
-        var_dump($data);
-        die();
+        return $data;
+    }
+
+    /**
+     * Récupère l'ID d'un client enregistré
+     * via les infos stockés dans $_SESSION['client']
+     */
+    public function getId($array)
+    {
+        $db = DB::getPdo();
+
+        $sql = $db->prepare('SELECT id_client FROM client WHERE mail = :mail');
+        $sql->bindParam(':mail', $array['mail']);
+        $sql->execute();
+
+        $data = $sql->fetch(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    /**
+     * Effectue toutes les étapes de la création client (3 requêtes sql) dans une transaction
+     * Si une des requetes plante, un rollback vers l'état initial est fait pour éviter toute corruption de la base de données
+     * @param array $client de $_SESSION['client']
+     * @param string $cp (code postal)
+     * @param string $ville de $_SESSION['client']['ville']
+     * @return array ligne du client dans la table client.
+     */
+    public function transaction_create($array, $cp, $ville)
+    {
+        $db = DB::getPdo();
+        $db->beginTransaction();
+        try {
+            $ville_id = $this->selectOrInsert($cp, $ville);
+            $client = $this->create($array, $ville_id);
+            $id = $this->getId($array);
+
+            // Commit les 3 requêtes
+            $db->commit();
+        } catch (\Exception $e) {
+            $db->rollback();
+        }
+        $data = [$client, $id];
         return $data;
     }
 }
