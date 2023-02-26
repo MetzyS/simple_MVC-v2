@@ -29,7 +29,7 @@ class Compte
 
                 $ville = $client['ville'];
                 $cp = $client['cp'];
-
+                $client['mot_de_passe'] = password_hash($client['mot_de_passe'], PASSWORD_BCRYPT);
                 $new_client = $this->model->transaction_create($client, $cp, $ville);
 
                 $message = "Votre inscription a été prise en compte.";
