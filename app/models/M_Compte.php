@@ -104,7 +104,7 @@ class M_Compte extends Model
 
         $sql->execute();
 
-        $data = $sql->fetch();
+        $data = $sql->fetch(PDO::FETCH_NAMED);
 
         return $data;
     }
@@ -121,7 +121,7 @@ class M_Compte extends Model
         $sql->bindParam(':mail', $array['mail']);
         $sql->execute();
 
-        $data = $sql->fetch(PDO::FETCH_ASSOC);
+        $data = $sql->fetch(PDO::FETCH_NAMED);
         return $data;
     }
 

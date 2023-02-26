@@ -1,15 +1,17 @@
 <?php
-ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 include '../app/views/template/head.php';
 include '../app/views/template/navigation.php';
 
 use App\Core\App;
+use App\Validators\Verification;
 
-if(!isset($_SESSION['utilisateur'])) {
+if (!isset($_SESSION['utilisateur'])) {
     $_SESSION['utilisateur'] = null;
 }
-if(!isset($_SESSION['panier'])) {
+if (!isset($_SESSION['panier'])) {
     $_SESSION['panier'] = [];
 }
 

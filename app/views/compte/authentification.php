@@ -1,18 +1,24 @@
+<?php
+if (isset($_SESSION['utilisateur']['id_client'])) {
+    header('Location: /www/simple_MVC-v2/public/compte/informations/');
+}
+
+?>
 <h1>compte/authentification</h1>
 
 <form action="#" method="POST">
     <fieldset>
         <legend>Inscription</legend>
 
-            <div class="input-container">    
-                <label for="mail">Mail </label>
-                <input type="email" name="mail" placeholder="Votre Mail" maxlength="20"/>
-            </div>
-            <div class="input-container">    
-                <label for="mdp">Mot de passe </label>
-                <input type="text" name="mdp" placeholder="Votre Mot de passe" maxlength="20"/>
-            </div>
-            <button type="submit">Envoyer</button>
+        <div class="input-container">
+            <label for="mail">Mail </label>
+            <input type="email" name="mail" placeholder="Votre Mail" maxlength="20" />
+        </div>
+        <div class="input-container">
+            <label for="mdp">Mot de passe </label>
+            <input type="text" name="mdp" placeholder="Votre Mot de passe" maxlength="20" />
+        </div>
+        <button type="submit">Envoyer</button>
     </fieldset>
 </form>
 <br>
