@@ -29,18 +29,18 @@ class Categorie
         $exemplaire = $this->model->exemplaire($id);
         $categorie_nom = $this->model->getNomCategorie($id);
 
-        $this->model->view('categorie/show', [
-            'categorie' => $categorie,
-            'categorie_menu' => $categorie_menu,
-            'exemplaire' => $exemplaire,
-            'categorie_nom' => $categorie_nom,
-        ]);
-    }
-
-    public function test()
-    {
-        $data = $this->model->find();
-        var_dump($data);
-        die();
+        // vérifie l'existence de la catégorie dans la base de donnée (numéro écrit dans l'URL)
+        // si un résultat est trouvé => ok
+        // sinon redirection vers 
+        if (!empty($categorie)) {
+            $this->model->view('categorie/show', [
+                'categorie' => $categorie,
+                'categorie_menu' => $categorie_menu,
+                'exemplaire' => $exemplaire,
+                'categorie_nom' => $categorie_nom,
+            ]);
+        } else {
+            header('Location: /www/simple_MVC-v2/app/views/template/404.php');
+        }
     }
 }

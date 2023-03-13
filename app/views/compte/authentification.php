@@ -6,17 +6,23 @@ if (isset($_SESSION['utilisateur']['id_client'])) {
 ?>
 <h1>compte/authentification</h1>
 
-<form action="#" method="POST">
+<?php
+if (isset($data['erreur'])) {
+    echo '<p class="erreur">' . $data['erreur'] . '</p>';
+}
+?>
+
+<form action="/www/simple_MVC-v2/app/views/compte/connexion.php" method="POST">
     <fieldset>
-        <legend>Inscription</legend>
+        <legend>Connexion</legend>
 
         <div class="input-container">
             <label for="mail">Mail </label>
-            <input type="email" name="mail" placeholder="Votre Mail" maxlength="20" />
+            <input type="email" name="mail" placeholder="Votre Mail" maxlength="20" required />
         </div>
         <div class="input-container">
             <label for="mdp">Mot de passe </label>
-            <input type="text" name="mdp" placeholder="Votre Mot de passe" maxlength="20" />
+            <input type="password" name="mdp" placeholder="Votre Mot de passe" maxlength="20" required />
         </div>
         <button type="submit">Envoyer</button>
     </fieldset>

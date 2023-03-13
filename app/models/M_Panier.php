@@ -44,4 +44,35 @@ class M_Panier extends Model
         return $data;
     }
     // Nous effectuons plusieurs traitements sur $sql car pour la requête SQL WHERE ... IN ..., nous devons injecter des valeurs entourés de quotes et séparés par une ",". 
+
+    public function commande($ids, $client)
+    {
+        $client_id = $client[0]['id_client'];
+        $db = DB::getPdo();
+        $id_commande = ""; // auto increment
+        $id_ligne = "";
+
+        $count = 0; // pour compter le nombre de produits
+
+        $sql = $db->prepare('INSERT INTO commande VALUES (:id_commande, :client_id, NOW(), NOW())');
+        $sql->bindParam(':id_commande', $id_commande);
+        $sql->bindParam(':client_id', $client_id);
+
+        $sql->execute();
+        $last_commande_id = DB::getPdo()->lastInsertId();
+
+        foreach ($ids as $key => $value) {
+            $exemplaire_id = $value['id_exemplaire'];
+
+            $sql2 = $db->prepare('INSERT INTO lignes_commande VALUES (:id_ligne, :last_commande_id, :exemplaire_id)');
+            $sql2->bindParam(':id_ligne', $id_ligne);
+            $sql2->bindParam(':last_commande_id', $last_commande_id);
+            $sql2->bindParam(':exemplaire_id', $exemplaire_id);
+
+            $sql2->execute();
+            $count = $count + 1;
+            $message = "Félicitations, vous avez commandé <strong>" . $count . " produits.</strong>";
+        }
+        return $message;
+    }
 }

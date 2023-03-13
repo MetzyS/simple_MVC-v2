@@ -1,6 +1,6 @@
 <?php
-if (isset($_SESSION['utilisateur']['id_client'])) {
-    echo '<p>' . $_SESSION['utilisateur']['prenom'] . ', bienvenue chez';
+if (isset($_SESSION['utilisateur'][0]['id_client'])) {
+    echo '<p>' . $_SESSION['utilisateur'][0]['prenom_client'] . ', bienvenue chez';
 }
 ?>
 <h1>Lord Of Geek</h1>

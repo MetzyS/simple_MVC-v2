@@ -1,10 +1,5 @@
 <?php
 
-use App\Validators\Verification;
-
-require_once '../../validators/verifications.php';
-
-
 session_start();
 if (isset($_SESSION['utilisateur']['id_client'])) {
     header('Location: /www/simple_MVC-v2/public/compte/informations/');
@@ -27,8 +22,5 @@ $cp = filter_input(INPUT_POST, 'cp');
 $_SESSION['client'] = [$nom, $prenom, $mail, $mdp, $adresse, $ville, $cp];
 $_SESSION['client'] = array_combine($array, $_SESSION['client']);
 
-
-// $compteController = new Compte();
-// $check = $compteController->checkMail($mail);
 
 header('Location: /www/simple_MVC-v2/public/compte/create/');
